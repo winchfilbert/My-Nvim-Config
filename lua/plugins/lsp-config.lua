@@ -9,7 +9,8 @@ return{
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = {"lua_ls", "clangd", "cssls", "dockerls", "gopls", "html", "jsonls", "ts_ls", "eslint", "ast_grep", "pylsp"}
+        ensure_installed = {"lua_ls", "clangd", "cssls", "dockerls", "gopls",
+          "html", "jsonls", "tsserver", "eslint", "ast_grep", "pylsp","rust_analyzer", "tailwindcss"}
       })
     end
   },
@@ -18,35 +19,40 @@ return{
     lazy = false,
     config = function()
       local lspconfig = require("lspconfig")
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.clangd.setup({
-        capabilities = capabilities
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.gopls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities
-      })
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.cssls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.ast_grep.setup({
-        capabilities = capabilities
-      })
-      lspconfig.pylsp.setup({
-        capabilities = capabilities
-      })
-       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-       vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
+      local servers = { "lua_ls", "clangd", "tsserver", "gopls", "html", "cssls", "ast_grep", "pylsp", "tailwindcss" }
+      for _, lsp in ipairs(servers) do
+        lspconfig[lsp].setup({
+          capabilities = capabilities
+        })
+      end
+
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
     end
   },
+  {
+    "simrat39/rust-tools.nvim",
+    config = function()
+      local rust_tools = require("rust-tools")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      rust_tools.setup({
+        server = {
+          on_attach = function(_, bufnr)
+            local opts = { noremap = true, silent = true, buffer = bufnr }
+            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          end,
+          capabilities = capabilities,
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = { command = "clippy" },
+            },
+          },
+        },
+      })
+    end
+  }
 }
