@@ -10,7 +10,7 @@ return{
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {"lua_ls", "clangd", "cssls", "dockerls", "gopls",
-          "html", "jsonls", "ts_ls", "eslint", "ast_grep", "pylsp","rust_analyzer", "tailwindcss"}
+          "html", "jsonls", "ts_ls", "eslint", "ast_grep", "pylsp","rust_analyzer", "tailwindcss", "emmet_ls"}
       })
     end
   },
@@ -21,12 +21,17 @@ return{
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local servers = { "lua_ls", "clangd", "ts_ls", "gopls", "html", "cssls", "ast_grep", "pylsp", "tailwindcss" }
+      local servers = { "lua_ls", "clangd", "ts_ls", "gopls", "html", "cssls", "ast_grep", "pylsp", "tailwindcss", "emmet_ls"}
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
           capabilities = capabilities
         })
       end
+
+        lspconfig.emmet_ls.setup({
+          capabilities = capabilities,
+          filetypes = { "html", "css", "javascriptreact", "typescriptreact" }, -- Enables JSX/TSX
+      })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
