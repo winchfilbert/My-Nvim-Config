@@ -10,7 +10,7 @@ return{
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {"lua_ls", "clangd", "cssls", "dockerls", "gopls",
-          "html", "jsonls", "ts_ls", "eslint", "ast_grep", "pylsp","rust_analyzer", "tailwindcss", "emmet_ls"}
+          "html", "jsonls", "ts_ls", "eslint", "ast_grep", "pylsp", "tailwindcss", "emmet_ls"}
       })
     end
   },
@@ -45,6 +45,7 @@ return{
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       rust_tools.setup({
         server = {
+          cmd = { "rust-analyzer" },
           on_attach = function(_, bufnr)
             local opts = { noremap = true, silent = true, buffer = bufnr }
             vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)

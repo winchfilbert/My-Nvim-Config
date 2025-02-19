@@ -27,7 +27,4 @@ return{
   {
     'nvimtools/none-ls.nvim',
   },
-  {
-    "simrat39/rust-tools.nvim",
-  },
 }
