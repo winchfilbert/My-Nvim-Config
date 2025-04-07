@@ -3,7 +3,7 @@
 <h2> my Neovim main theme : Vesper.nvim </h2>
 <link href="https://github.com/AlexvZyl/nordic.nvim](https://github.com/datsfilipe/vesper.nvim"> https://github.com/datsfilipe/vesper.nvim </link>
 <br>
-
+<br></br>
 <p>Notes:
 <li> you can also find the color of the Nordic theme in vscode through finding it in the extensions / search by using the color theme search bar </li>
 <li> the Rust analyzer were from the official RustUp which can be downloaded through CLI or it's official website, <br> make sure to download the rust first before using the config</br> </li>
