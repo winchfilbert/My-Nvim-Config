@@ -1,15 +1,8 @@
 <h1> FChang88 Nvim's Config</h1>
 
-<h2> my Neovim main theme : Nordic </h2>
-<link href="https://github.com/AlexvZyl/nordic.nvim"> https://github.com/AlexvZyl/nordic.nvim </link>
+<h2> my Neovim main theme : Vesper.nvim </h2>
+<link href="https://github.com/AlexvZyl/nordic.nvim](https://github.com/datsfilipe/vesper.nvim"> https://github.com/datsfilipe/vesper.nvim </link>
 <br>
-
-</br>
-<p> This nvim config theme works for me the best with: 
-<li>iterm : gruvboxDark theme (which would make the terminal color warmer) <br>with 90% of transparency / transparency value set to 10</br></li>
-</p>
-
-<br></br>
 
 <p>Notes:
 <li> you can also find the color of the Nordic theme in vscode through finding it in the extensions / search by using the color theme search bar </li>
