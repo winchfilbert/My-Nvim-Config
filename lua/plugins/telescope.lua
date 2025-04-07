@@ -21,11 +21,9 @@ return {
           }
         }
       })
-      
       -- Load extensions
       require("telescope").load_extension("ui-select")
       require("telescope").load_extension("media_files")
-      
       -- Set keybindings
       local builtin = require("telescope.builtin")
       vim.keymap.set('n', '<C-p>', builtin.find_files, {})
