@@ -1,3 +1,19 @@
+-- Fix deprecated treesitter API for older plugins
+if vim.treesitter then
+  local get_lang = (vim.treesitter.language and vim.treesitter.language.get_lang)
+    or vim.treesitter.get_lang
+
+  if get_lang then
+    -- Cover both old paths
+    vim.treesitter.ft_to_lang = get_lang
+    if vim.treesitter.language then
+      vim.treesitter.language.ft_to_lang = get_lang
+    else
+      vim.treesitter.language = { ft_to_lang = get_lang, get_lang = get_lang }
+    end
+  end
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"

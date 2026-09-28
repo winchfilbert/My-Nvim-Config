@@ -5,9 +5,10 @@ return {
     build = ":TSUpdate",
     main = "nvim-treesitter.config", -- Modern singular 'config'
     opts = {
-      ensure_installed = { "lua", "vim", "vimdoc", "query", "javascript", "typescript", "c" },
+      ensure_installed = { "lua", "vim", "vimdoc", "query", "javascript", "typescript", "c", "php" },
       highlight = { enable = true },
       indent = { enable = true },
     },
   },
 }
+

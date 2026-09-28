@@ -23,6 +23,7 @@ return {
           "pylsp",
           "tailwindcss",
           "emmet_ls",
+          "intelephense",
         },
       })
     end,
@@ -52,6 +53,7 @@ return {
         "dockerls",
         "jsonls",
         "eslint",
+        "intelphense",
       }
 
       for _, server in ipairs(default_servers) do
@@ -62,9 +64,23 @@ return {
       -- Custom configuration for emmet_ls
       vim.lsp.config("emmet_ls", {
         capabilities = capabilities,
-        filetypes = { "html", "css", "javascriptreact", "typescriptreact" },
+        filetypes = { "html", "css", "javascriptreact", "typescriptreact", "blade" },
       })
       vim.lsp.enable("emmet_ls")
+
+      -- Make Tailwind CSS autompclete work in Blade Templates
+      vim.lsp.config("tailwindcss", {
+        capabilities = capabilities, 
+        filetypes = { "html", "css", "javascript", "typescript", "blade", "php" },
+        settings = {
+          tailwindCSS = {
+            includeLanguages = {
+              blade = "html",
+            },
+          },
+        },
+      })
+      vim.lsp.enable("tailwindcss")
     end,
   },
   {
