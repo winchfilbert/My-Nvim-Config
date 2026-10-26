@@ -47,3 +47,25 @@ vim.keymap.set("v", "<Tab>", ">gv", { noremap = true })
 vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true })
 vim.opt.autoindent = true
 vim.opt.smartindent = true
+
+vim.filetype.add({
+  pattern = {
+    [".*%.blade%.php"] = "blade",
+  },
+})
+
+-- a better line wrapping
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true -- Wrap cleanly at word boundaries, not mid-word
+    vim.opt_local.conceallevel = 2 -- Required for clean link and table rendering
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = { "en_us" }
+
+    -- Make j and k move by visual screen lines when no count is given
+    vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, buffer = true, silent = true })
+    vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, buffer = true, silent = true })
+  end,
+})

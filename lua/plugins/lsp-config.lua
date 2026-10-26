@@ -53,7 +53,7 @@ return {
         "dockerls",
         "jsonls",
         "eslint",
-        "intelphense",
+        "intelephense",
       }
 
       for _, server in ipairs(default_servers) do
