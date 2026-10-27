@@ -34,9 +34,16 @@ return {
         date_format = "%Y-%m-%d",
         alias_format = "%B %-d, %Y",
       },
-      -- Disable obsidian.nvim's built-in UI layer so render-markdown.nvim 
-      -- handles buffer rendering without concealing conflicts
-      ui = { enable = false },
+      -- Obsidian UI configuration with custom highlight groups
+      ui = {
+        enable = false, -- render-markdown handles buffer rendering without concealing conflicts
+        hl_groups = {
+          ObsidianBullet = { bold = true, fg = "#FFCFAB" },
+          ObsidianDone = { bold = true, fg = "#FFCFAB" },
+          ObsidianTag = { italic = true, fg = "#FFCFAB" },
+          ObsidianBlockID = { italic = true, fg = "#FFCFAB" },
+        },
+      },
 
       -- Clean, readable filenames instead of random Zettelkasten timestamps
       note_id_func = function(title)
@@ -76,10 +83,20 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons", -- Swap for "echasnovski/mini.icons" if you use mini
     },
+    init = function()
+      -- Highlight Obsidian tags (#tag) in markdown buffers using ObsidianTag
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function()
+          vim.cmd([[syntax match ObsidianTag /\v(^|\s)@<=#[a-zA-Z0-9_\/-]+/]])
+        end,
+      })
+    end,
     opts = {
       heading = {
         sign = false,
         icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        backgrounds = {}, -- Clear DiffText/DiffAdd line background so headings are bright and visible
       },
       code = {
         sign = false,
@@ -88,7 +105,10 @@ return {
       },
       checkbox = {
         unchecked = { icon = "󰄱 " },
-        checked = { icon = "󰱒 " },
+        checked = { icon = "󰱒 ", highlight = "ObsidianDone" },
+      },
+      bullet = {
+        highlight = "ObsidianBullet",
       },
     },
   },
